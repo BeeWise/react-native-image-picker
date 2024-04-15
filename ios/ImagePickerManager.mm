@@ -207,6 +207,11 @@ NSData* extractImageData(UIImage* image){
     if(phAsset){
         asset[@"timestamp"] = [self getDateTimeInUTC:phAsset.creationDate];
         asset[@"id"] = phAsset.localIdentifier;
+        asset[@"originalPath"] = [NSString stringWithFormat:@"ph://%@", phAsset.localIdentifier];
+        if (phAsset.location) {
+            asset[@"latitude"] = phAsset.location.coordinate.latitude;
+            asset[@"longitude"] = phAsset.location.coordinate.longitude;
+        }
         // Add more extra data here ...
     }
 
