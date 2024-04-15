@@ -209,8 +209,8 @@ NSData* extractImageData(UIImage* image){
         asset[@"id"] = phAsset.localIdentifier;
         asset[@"originalPath"] = [NSString stringWithFormat:@"ph://%@", phAsset.localIdentifier];
         if (phAsset.location) {
-            asset[@"latitude"] = phAsset.location.coordinate.latitude;
-            asset[@"longitude"] = phAsset.location.coordinate.longitude;
+            asset[@"latitude"] = @(phAsset.location.coordinate.latitude);
+            asset[@"longitude"] = @(phAsset.location.coordinate.longitude);
         }
         // Add more extra data here ...
     }
