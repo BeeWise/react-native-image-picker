@@ -90,12 +90,12 @@ public class VideoMetadata extends Metadata {
     }
 
     @Override
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
     @Override
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 }

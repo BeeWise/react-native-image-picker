@@ -16,10 +16,10 @@ public class ImageMetadata extends Metadata {
 
             double[] latLng = exif.getLatLong();
             if (areCoordsValid(latLng)) {
-                this.latitude = latLng[0];
-                this.longitude = latLng[1];
+                this.latitude = new Double(latLng[0]);
+                this.longitude = new Double(latLng[1]);
             }
-            
+
             // Extract anymore metadata here...
             if (datetimeTag != null)
                 this.datetime = getDateTimeInUTC(datetimeTag, "yyyy:MM:dd HH:mm:ss");
@@ -51,12 +51,12 @@ public class ImageMetadata extends Metadata {
     }
 
     @Override
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
     @Override
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 }
