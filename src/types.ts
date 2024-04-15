@@ -16,11 +16,8 @@ export interface OptionsCommon {
     | 'formSheet'
     | 'popover'
     | 'overFullScreen'
-    | 'overCurrentContext'
-    assetRepresentationMode?:
-    | 'auto'
-    | 'current'
-    | 'compatible';
+    | 'overCurrentContext';
+  assetRepresentationMode?: 'auto' | 'current' | 'compatible';
 }
 
 export interface ImageLibraryOptions extends OptionsCommon {
@@ -46,6 +43,8 @@ export interface Asset {
   bitrate?: number;
   timestamp?: string;
   id?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface ImagePickerResponse {
