@@ -585,7 +585,7 @@ CGImagePropertyOrientation CGImagePropertyOrientationForUIImageOrientation(UIIma
 
             self.callback(@[response]);
         });
-    }
+    };
     
     [picker dismissViewControllerAnimated:YES completion:dismissCompletionBlock];
 }
