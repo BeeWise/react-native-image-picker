@@ -504,7 +504,7 @@ public class Utils {
     }
 
     static ReadableMap getImageResponseMap(Uri uri, Uri appSpecificUri, Options options, Context context) {
-        ImageMetadata imageMetadata = new ImageMetadata(appSpecificUri, context);
+        ImageMetadata imageMetadata = new ImageMetadata(uri, context);
         int[] dimensions = getImageDimensions(appSpecificUri, context);
 
         String fileName = getFileName(uri, context);
@@ -527,6 +527,15 @@ public class Utils {
             // Add more extra data here ...
             map.putString("timestamp", imageMetadata.getDateTime());
             map.putString("id", fileName);
+            Double latitude = imageMetadata.getLatitude();
+            if (latitude != null) {
+                map.putDouble("latitude", latitude);
+            }
+
+            Double longitude = imageMetadata.getLongitude();
+            if (longitude != null) {
+                map.putDouble("longitude", longitude);
+            }
         }
 
         return map;

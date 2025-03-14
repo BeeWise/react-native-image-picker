@@ -12,12 +12,16 @@ abstract class Metadata {
     protected String datetime;
     protected int height;
     protected int width;
-
+    protected Double latitude;
+    protected Double longitude;
     abstract public String getDateTime();
 
     abstract public int getWidth();
 
     abstract public int getHeight();
+
+    abstract public Double getLatitude();
+    abstract public Double getLongitude();
 
     /**
      * Converts a timestamp to a UTC timestamp

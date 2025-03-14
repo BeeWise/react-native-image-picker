@@ -88,4 +88,14 @@ public class VideoMetadata extends Metadata {
     public int getHeight() {
         return height;
     }
+
+    @Override
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public Double getLongitude() {
+        return longitude;
+    }
 }

@@ -44,6 +44,8 @@ export interface Asset {
   bitrate?: number;
   timestamp?: string;
   id?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface ImagePickerResponse {

@@ -14,6 +14,12 @@ public class ImageMetadata extends Metadata {
             ExifInterface exif = new ExifInterface(inputStream);
             String datetimeTag = exif.getAttribute(ExifInterface.TAG_DATETIME);
 
+            double[] latLng = exif.getLatLong();
+            if (areCoordsValid(latLng)) {
+                this.latitude = new Double(latLng[0]);
+                this.longitude = new Double(latLng[1]);
+            }
+
             // Extract anymore metadata here...
             if (datetimeTag != null)
                 this.datetime = getDateTimeInUTC(datetimeTag, "yyyy:MM:dd HH:mm:ss");
@@ -21,6 +27,10 @@ public class ImageMetadata extends Metadata {
             // This error does not bubble up to RN as we don't want failed datetime retrieval to prevent selection
             Log.e("RNIP", "Could not load image metadata: " + e.getMessage());
         }
+    }
+
+    boolean areCoordsValid(double[] latLng) {
+        return ((latLng != null) && (latLng.length >= 2) && (!Double.isNaN(latLng[0])) && (!Double.isNaN(latLng[1])));
     }
 
     @Override
@@ -38,5 +48,15 @@ public class ImageMetadata extends Metadata {
     @Override
     public int getHeight() {
         return 0;
+    }
+
+    @Override
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public Double getLongitude() {
+        return longitude;
     }
 }
