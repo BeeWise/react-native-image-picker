@@ -9,6 +9,8 @@ export interface OptionsCommon {
   includeBase64?: boolean;
   includeExtra?: boolean;
   formatAsMp4?: boolean;
+  forceOldAndroidPhotoPicker?: boolean;
+  chooserTitle?: string;
   presentationStyle?:
     | 'currentContext'
     | 'fullScreen'
