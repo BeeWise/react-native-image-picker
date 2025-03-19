@@ -14,6 +14,7 @@ abstract class Metadata {
     protected int width;
     protected Double latitude;
     protected Double longitude;
+    protected Boolean hasAudio;
     abstract public String getDateTime();
 
     abstract public int getWidth();
@@ -22,6 +23,7 @@ abstract class Metadata {
 
     abstract public Double getLatitude();
     abstract public Double getLongitude();
+    abstract public Boolean getHasAudio();
 
     /**
      * Converts a timestamp to a UTC timestamp

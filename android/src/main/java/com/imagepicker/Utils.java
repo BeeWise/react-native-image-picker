@@ -536,6 +536,8 @@ public class Utils {
             if (longitude != null) {
                 map.putDouble("longitude", longitude);
             }
+
+            map.putBoolean("hasAudio", imageMetadata.getHasAudio());
         }
 
         return map;
@@ -562,6 +564,18 @@ public class Utils {
             // Add more extra data here ...
             map.putString("timestamp", videoMetadata.getDateTime());
             map.putString("id", fileName);
+
+            Double latitude = videoMetadata.getLatitude();
+            if (latitude != null) {
+                map.putDouble("latitude", latitude);
+            }
+
+            Double longitude = videoMetadata.getLongitude();
+            if (longitude != null) {
+                map.putDouble("longitude", longitude);
+            }
+
+            map.putBoolean("hasAudio", videoMetadata.getHasAudio());
         }
 
         return map;

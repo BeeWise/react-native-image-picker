@@ -287,13 +287,18 @@ CGImagePropertyOrientation CGImagePropertyOrientationForUIImageOrientation(UIIma
         [exportSession exportAsynchronouslyWithCompletionHandler:^(void) {
             if (exportSession.status == AVAssetExportSessionStatusCompleted) {
                 CGSize dimentions = [ImagePickerUtils getVideoDimensionsFromUrl:outputURL];
+                
+                AVAsset *videoAsset = [AVAsset assetWithURL:outputURL];
+                NSArray *videoAssetTracks = [videoAsset tracksWithMediaType:AVMediaTypeAudio];
+                
                 response[@"fileName"] = [outputURL lastPathComponent];
-                response[@"duration"] = [NSNumber numberWithDouble:CMTimeGetSeconds([AVAsset assetWithURL:outputURL].duration)];
+                response[@"duration"] = [NSNumber numberWithDouble:CMTimeGetSeconds(videoAsset.duration)];
                 response[@"uri"] = outputURL.absoluteString;
                 response[@"type"] = [ImagePickerUtils getFileTypeFromUrl:outputURL];
                 response[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:outputURL];
                 response[@"width"] = @(dimentions.width);
                 response[@"height"] = @(dimentions.height);
+                response[@"hasAudio"] = videoAssetTracks.count >= 1;
 
                 dispatch_semaphore_signal(sem);
             } else if (exportSession.status == AVAssetExportSessionStatusFailed || exportSession.status == AVAssetExportSessionStatusCancelled) {
@@ -305,17 +310,27 @@ CGImagePropertyOrientation CGImagePropertyOrientationForUIImageOrientation(UIIma
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
     } else {
         CGSize dimentions = [ImagePickerUtils getVideoDimensionsFromUrl:videoDestinationURL];
+        
+        AVAsset *videoAsset = [AVAsset assetWithURL:videoDestinationURL];
+        NSArray *videoAssetTracks = [videoAsset tracksWithMediaType:AVMediaTypeAudio];
+        
         response[@"fileName"] = fileName;
-        response[@"duration"] = [NSNumber numberWithDouble:CMTimeGetSeconds([AVAsset assetWithURL:videoDestinationURL].duration)];
+        response[@"duration"] = [NSNumber numberWithDouble:CMTimeGetSeconds(videoAsset.duration)];
         response[@"uri"] = videoDestinationURL.absoluteString;
         response[@"type"] = [ImagePickerUtils getFileTypeFromUrl:videoDestinationURL];
         response[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:videoDestinationURL];
         response[@"width"] = @(dimentions.width);
         response[@"height"] = @(dimentions.height);
+        response[@"hasAudio"] = videoAssetTracks.count >= 1;
 
         if(phAsset){
             response[@"timestamp"] = [self getDateTimeInUTC:phAsset.creationDate];
             response[@"id"] = phAsset.localIdentifier;
+            response[@"originalPath"] = [NSString stringWithFormat:@"ph://%@", phAsset.localIdentifier];
+            if (phAsset.location) {
+                response[@"latitude"] = @(phAsset.location.coordinate.latitude);
+                response[@"longitude"] = @(phAsset.location.coordinate.longitude);
+            }
             // Add more extra data here ...
         }
     }

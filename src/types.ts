@@ -48,6 +48,7 @@ export interface Asset {
   id?: string;
   latitude?: number;
   longitude?: number;
+  hasAudio?: boolean;
 }
 
 export interface ImagePickerResponse {
