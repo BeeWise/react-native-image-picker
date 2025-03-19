@@ -38,6 +38,7 @@ public class VideoMetadata extends Metadata {
             String bitrate = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE);
             String datetime = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE);
             String locationMetadata = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_LOCATION);
+            String hasAudioTrack = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_HAS_AUDIO);
 
             // Extract anymore metadata here...
             if (duration != null) this.duration = Math.round(Float.parseFloat(duration)) / 1000;
@@ -55,6 +56,8 @@ public class VideoMetadata extends Metadata {
                 this.latitude = location[0];
                 this.longitude = location[1];
             }
+
+            this.hasAudio = hasAudioTrack != null && hasAudioTrack.equals("yes");
 
             String width = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
             String height = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
@@ -108,6 +111,9 @@ public class VideoMetadata extends Metadata {
     public Double getLongitude() {
         return longitude;
     }
+
+    @Override
+    public Boolean getHasAudio() { return hasAudio; }
 
     private Double[] parseLocation(String location) {
         if (location == null) return null;

@@ -59,4 +59,7 @@ public class ImageMetadata extends Metadata {
     public Double getLongitude() {
         return longitude;
     }
+
+    @Override
+    public Boolean getHasAudio() { return false; }
 }
