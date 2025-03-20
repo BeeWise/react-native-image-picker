@@ -298,7 +298,7 @@ CGImagePropertyOrientation CGImagePropertyOrientationForUIImageOrientation(UIIma
                 response[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:outputURL];
                 response[@"width"] = @(dimentions.width);
                 response[@"height"] = @(dimentions.height);
-                response[@"hasAudio"] = videoAssetTracks.count >= 1;
+                response[@"hasAudio"] = @(videoAssetTracks.count >= 1);
 
                 dispatch_semaphore_signal(sem);
             } else if (exportSession.status == AVAssetExportSessionStatusFailed || exportSession.status == AVAssetExportSessionStatusCancelled) {
@@ -321,7 +321,7 @@ CGImagePropertyOrientation CGImagePropertyOrientationForUIImageOrientation(UIIma
         response[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:videoDestinationURL];
         response[@"width"] = @(dimentions.width);
         response[@"height"] = @(dimentions.height);
-        response[@"hasAudio"] = videoAssetTracks.count >= 1;
+        response[@"hasAudio"] = @(videoAssetTracks.count >= 1);
 
         if(phAsset){
             response[@"timestamp"] = [self getDateTimeInUTC:phAsset.creationDate];
