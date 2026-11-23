@@ -21,7 +21,7 @@ public class Options {
     String[] restrictMimeTypes;
     Boolean forceOldAndroidPhotoPicker = false;
     String chooserTitle = null;
-
+    String androidCameraPackage;
 
     Options(ReadableMap options) {
         mediaType = options.getString("mediaType");
@@ -51,6 +51,10 @@ public class Options {
 
         if (options.getString("cameraType").equals("front")) {
             useFrontCamera = true;
+        }
+
+        if( options.hasKey("androidCameraPackage")) {
+            androidCameraPackage = options.getString("androidCameraPackage");
         }
 
         quality = (int) (options.getDouble("quality") * 100);
